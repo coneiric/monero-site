@@ -107,9 +107,12 @@ $ curl -X POST http://127.0.0.1:18082/json_rpc -d '{"jsonrpc":"2.0","id":"0","me
 
 ### **getaddress**
 
-Return the wallet's address.
+Return the wallet's addresses for an account. Optionally filter for specific set of subaddresses.
 
-Inputs: *None*.
+Inputs:
+
+* *account_index* - unsigned int; Return subaddresses for this account.
+* *address_index* - array of unsigned int; (Optional) List of subaddresses to return from an account.
 
 Outputs:
 
@@ -118,13 +121,24 @@ Outputs:
 Example:
 
 ```
-$ curl -X POST http://127.0.0.1:18082/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"getaddress"}' -H 'Content-Type: application/json'
+$ curl -X POST http://127.0.0.1:18082/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"getaddress","params":{"account_index":0,"address_index":[0,1]}}' -H 'Content-Type: application/json'
 
 {
   "id": "0",
   "jsonrpc": "2.0",
   "result": {
-    "address": "427ZuEhNJQRXoyJAeEoBaNW56ScQaLXyyQWgxeRL9KgAUhVzkvfiELZV7fCPBuuB2CGuJiWFQjhnhhwiH1FsHYGQGaDsaBA"
+    "address": "427ZuEhNJQRXoyJAeEoBaNW56ScQaLXyyQWgxeRL9KgAUhVzkvfiELZV7fCPBuuB2CGuJiWFQjhnhhwiH1FsHYGQGaDsaBA",
+    "addresses": [{
+          "address": "427ZuEhNJQRXoyJAeEoBaNW56ScQaLXyyQWgxeRL9KgAUhVzkvfiELZV7fCPBuuB2CGuJiWFQjhnhhwiH1FsHYGQGaDsaBA",
+          "address_index": 0,
+          "label": "Primary account",
+          "used": false
+        },{
+          "address": "88bV1uo76AaKZaWD389kCf5EfPxKFYEKUQbs9ZRJm23E2X2oYgV9bQ54FiY6hAB83aDXMUSZF6KWyfeQqzLqaAeeFrk9iic",
+          "address_index": 1,
+          "label": "",
+          "used": false
+        }]
   }
 }
 ```
