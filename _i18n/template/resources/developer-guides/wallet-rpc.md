@@ -70,6 +70,7 @@ Note: "atomic units" refer to the smallest fraction of 1 XMR according to the mo
 * [create_wallet](#create_wallet)
 * [open_wallet](#open_wallet)
 * [get_accounts](#get_accounts)
+* [create_account](#create_account)
 
 ---
 
@@ -1262,6 +1263,34 @@ $ curl -X POST http://localhost:18082/json_rpc -d '{"jsonrpc":"2.0","id":"0","me
     }],
     "total_balance": 0,
     "total_unlocked_balance": 0
+  }
+}
+```
+
+### **create_account**
+
+Create a new account with an optional label.
+
+Inputs:
+
+* *label* - string; (Optional) Label for the account.
+
+Outputs:
+
+* *account_index* - unsigned int; Index of the new account.
+* *address* - string; Address for this account. Base58 representation of the public keys.
+
+Example:
+
+```
+$ curl -X POST http://localhost:18082/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"create_account","params":{"label":"Secondary account"}}' -H 'Content-Type: application/json'
+
+{
+  "id": "0",
+  "jsonrpc": "2.0",
+  "result": {
+    "account_index": 1,
+    "address": "88bV1uo76AaKZaWD389kCf5EfPxKFYEKUQbs9ZRJm23E2X2oYgV9bQ54FiY6hAB83aDXMUSZF6KWyfeQqzLqaAeeFrk9iic"
   }
 }
 ```
