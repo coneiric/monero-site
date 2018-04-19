@@ -71,6 +71,7 @@ Note: "atomic units" refer to the smallest fraction of 1 XMR according to the mo
 * [open_wallet](#open_wallet)
 * [get_accounts](#get_accounts)
 * [create_account](#create_account)
+* [create_address](#create_address)
 
 ---
 
@@ -1291,6 +1292,35 @@ $ curl -X POST http://localhost:18082/json_rpc -d '{"jsonrpc":"2.0","id":"0","me
   "result": {
     "account_index": 1,
     "address": "88bV1uo76AaKZaWD389kCf5EfPxKFYEKUQbs9ZRJm23E2X2oYgV9bQ54FiY6hAB83aDXMUSZF6KWyfeQqzLqaAeeFrk9iic"
+  }
+}
+```
+
+### **create_address**
+
+Create a new address for an account. Optionally, label the new address.
+
+Inputs:
+
+* *account_index* - unsigned int; Create a new address for this account.
+* *label* - string; (Optional) Label for the new address.
+
+Outputs:
+
+* *address* - string; Newly created address. Base58 representation of the public keys.
+* *address_index* - unsigned int; Index of the new address under the input account.
+
+Example:
+
+```
+$ curl -X POST http://localhost:18082/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"create_address","params":{"account_index:0,"label":"Secondary account"}}' -H 'Content-Type: application/json'
+
+{
+  "id": "0",
+  "jsonrpc": "2.0",
+  "result": {
+    "address": "88bV1uo76AaKZaWD389kCf5EfPxKFYEKUQbs9ZRJm23E2X2oYgV9bQ54FiY6hAB83aDXMUSZF6KWyfeQqzLqaAeeFrk9iic",
+    "address_index": 1
   }
 }
 ```
