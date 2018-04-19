@@ -72,6 +72,7 @@ Note: "atomic units" refer to the smallest fraction of 1 XMR according to the mo
 * [get_accounts](#get_accounts)
 * [create_account](#create_account)
 * [create_address](#create_address)
+* [label_address](#label_address)
 
 ---
 
@@ -1321,6 +1322,32 @@ $ curl -X POST http://localhost:18082/json_rpc -d '{"jsonrpc":"2.0","id":"0","me
   "result": {
     "address": "88bV1uo76AaKZaWD389kCf5EfPxKFYEKUQbs9ZRJm23E2X2oYgV9bQ54FiY6hAB83aDXMUSZF6KWyfeQqzLqaAeeFrk9iic",
     "address_index": 1
+  }
+}
+```
+
+### **label_address**
+
+Label an address.
+
+Inputs:
+
+* *index* - subaddress index; JSON Object containing the major & minor address index:
+  * *major* - unsigned int; Account index for the subaddress.
+  * *minor* - unsigned int; Index of the subaddress in the account.
+* *label* - string; Label for the address.
+
+Outputs: *None*.
+
+Example:
+
+```
+$ curl -X POST http://localhost:18082/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"label_address","params":{"index":{"major":0,"minor":1}},"label":"Secondary account"}}' -H 'Content-Type: application/json'
+
+{
+  "id": "0",
+  "jsonrpc": "2.0",
+  "result": {
   }
 }
 ```
