@@ -71,6 +71,7 @@ Note: "atomic units" refer to the smallest fraction of 1 XMR according to the mo
 * [open_wallet](#open_wallet)
 * [get_accounts](#get_accounts)
 * [create_account](#create_account)
+* [label_account](#label_account)
 * [create_address](#create_address)
 * [label_address](#label_address)
 
@@ -1307,6 +1308,30 @@ $ curl -X POST http://localhost:18082/json_rpc -d '{"jsonrpc":"2.0","id":"0","me
   "result": {
     "account_index": 1,
     "address": "88bV1uo76AaKZaWD389kCf5EfPxKFYEKUQbs9ZRJm23E2X2oYgV9bQ54FiY6hAB83aDXMUSZF6KWyfeQqzLqaAeeFrk9iic"
+  }
+}
+```
+
+### **label_account**
+
+Label an account.
+
+Inputs:
+
+* *account_index* - unsigned int; Apply label to account at this index.
+* *label* - string; Label for the account.
+
+Outputs: *None*.
+
+Example:
+
+```
+$ curl -X POST http://localhost:18082/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"label_account","params":{"account_index":0,"label":"Secondary account"}}' -H 'Content-Type: application/json'
+
+{
+  "id": "0",
+  "jsonrpc": "2.0",
+  "result": {
   }
 }
 ```
