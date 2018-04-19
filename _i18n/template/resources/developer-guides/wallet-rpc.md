@@ -69,6 +69,7 @@ Note: "atomic units" refer to the smallest fraction of 1 XMR according to the mo
 * [get_languages](#get_languages)
 * [create_wallet](#create_wallet)
 * [open_wallet](#open_wallet)
+* [get_accounts](#get_accounts)
 
 ---
 
@@ -1211,6 +1212,56 @@ $ curl -X POST http://localhost:18082/json_rpc -d '{"jsonrpc":"2.0","id":"0","me
   "id": "0",
   "jsonrpc": "2.0",
   "result": {
+  }
+}
+```
+
+### **get_accounts**
+
+Get all accounts for a wallet. Optionally filter accounts by tag.
+
+Inputs:
+
+* *tag* - string; (Optional) Tag for filtering accounts.
+
+Outputs:
+
+* *subaddress_accounts* - array of subaddress account information:
+  * *account_index* - unsigned int; Index of the account.
+  * *balance* - unsigned int; Balance of the account (locked or unlocked).
+  * *base_address* - string; Base64 representation of the first subaddress in the account.
+  * *label* - string; (Optional) Label of the account.
+  * *tag* - string; (Optional) Tag for filtering accounts.
+  * *unlocked_balance* - unsigned int; Unlocked balance for the account.
+* *total_balance* - unsigned int; Total balance of the selected accounts (locked or unlocked).
+* *total_unlocked_balance* - unsigned int; Total unlocked balance of the selected accounts.
+
+Example:
+
+```
+$ curl -X POST http://localhost:18082/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"get_accounts","params":{"tag":"checking"}}' -H 'Content-Type: application/json'
+
+{
+  "id": "0",
+  "jsonrpc": "2.0",
+  "result": {
+    "subaddress_accounts": [{
+      "account_index": 0,
+      "balance": 0,
+      "base_address": "427ZuEhNJQRXoyJAeEoBaNW56ScQaLXyyQWgxeRL9KgAUhVzkvfiELZV7fCPBuuB2CGuJiWFQjhnhhwiH1FsHYGQGaDsaBA",
+      "label": "Primary account",
+      "tag": "checking",
+      "unlocked_balance": 0
+    },{
+      "account_index": 1,
+      "balance": 0,
+      "base_address": "88bV1uo76AaKZaWD389kCf5EfPxKFYEKUQbs9ZRJm23E2X2oYgV9bQ54FiY6hAB83aDXMUSZF6KWyfeQqzLqaAeeFrk9iic",
+      "label": "",
+      "tag": "checking",
+      "unlocked_balance": 0
+    }],
+    "total_balance": 0,
+    "total_unlocked_balance": 0
   }
 }
 ```
