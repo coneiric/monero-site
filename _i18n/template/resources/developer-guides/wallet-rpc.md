@@ -74,6 +74,7 @@ Note: "atomic units" refer to the smallest fraction of 1 XMR according to the mo
 * [label_account](#label_account)
 * [create_address](#create_address)
 * [label_address](#label_address)
+* [get_account_tags](#get_account_tags)
 
 ---
 
@@ -1387,6 +1388,37 @@ $ curl -X POST http://localhost:18082/json_rpc -d '{"jsonrpc":"2.0","id":"0","me
   "id": "0",
   "jsonrpc": "2.0",
   "result": {
+  }
+}
+```
+
+### **get_account_tags**
+
+Get a list of user-defined account tags.
+
+Inputs: *None*.
+
+Outputs:
+
+* *account_tags* - array of account tag information:
+  * *tag* - string; Filter tag.
+  * *label* - string; Label for the tag.
+  * *accounts* - array of int; List of tagged account indices.
+
+Example:
+
+```
+$ curl -X POST http://localhost:18082/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"get_account_tags","params":""}' -H 'Content-Type: application/json'
+
+{
+  "id": "0",
+  "jsonrpc": "2.0",
+  "result": {
+    "account_tags": [{
+      "accounts": [0],
+      "label": "",
+      "tag": "test"
+    }]
   }
 }
 ```
