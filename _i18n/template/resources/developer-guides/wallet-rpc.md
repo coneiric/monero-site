@@ -183,6 +183,8 @@ Inputs:
 * *destinations* - array of destinations to receive XMR:
   * *amount* - unsigned int; Amount to send to each destination, in atomic units.
   * *address* - string; Destination public address.
+* *account_index* - unsigned int; Transfer from this account index.
+* *subaddr_indices* - array of unsigned int; Transfer from this set of subaddresses.
 * *fee* - unsigned int; Ignored, will be automatically calculated.
 * *mixin* - unsigned int; Number of outpouts from the blockchain to mix with (0 means no mixing).
 * *unlock_time* - unsigned int; Number of blocks before the monero can be spent (0 to not add a lock).
@@ -191,6 +193,7 @@ Inputs:
 * *priority* - unsigned int; Set a priority for the transaction. Accepted Values are: 0-3 for: default, unimportant, normal, elevated, priority.
 * *do_not_relay* - boolean; (Optional) If true, the newly created transaction will not be relayed to the monero network. (Defaults to false)
 * *get_tx_hex* - boolean; Return the transaction as hex string after sending
+* *get_tx_metadata* - boolean; Return the metadata needed to relay the transaction.
 
 
 Outputs:
@@ -198,8 +201,11 @@ Outputs:
 * *fee* - Integer value of the fee charged for the txn.
 * *tx_hash* - String for the publically searchable transaction hash
 * *tx_key* - String for the transaction key if get_tx_key is true, otherwise, blank string.
-* *tx_blob* - Transaction as hex string if get_tx_hex is true
-
+* *amount_keys* - List of strings for the amount keys.
+* *amount* - Amount transferred for the transaction.
+* *tx_blob* - Raw transaction represented as hex string, if get_tx_hex is true.
+* *tx_metadata* - Set of transaction metadata needed to relay this transfer later, if get_tx_metadata is true.
+* *multisig_txset* - Set of multisig transactions in the process of being signed (empty for non-multisig).
 
 Example:
 
@@ -212,7 +218,12 @@ $ curl -X POST http://127.0.0.1:18082/json_rpc -d '{"jsonrpc":"2.0","id":"0","me
   "result": {
     "fee": 48958481211,
     "tx_hash": "985180f468637bc6d2f72ee054e1e34b8d5097988bb29a2e0cb763e4464db23c",
-    "tx_key": "8d62e5637f1fcc9a8904057d6bed6c697618507b193e956f77c31ce662b2ee07"
+    "tx_key": "8d62e5637f1fcc9a8904057d6bed6c697618507b193e956f77c31ce662b2ee07",
+    "amount_keys":[],
+    "amount": 300000000,
+    "tx_blob": "",
+    "tx_metadata": "",
+    "multisig_txset": ""
   }
 }
 ```
