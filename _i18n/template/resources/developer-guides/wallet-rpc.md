@@ -77,6 +77,7 @@ Note: "atomic units" refer to the smallest fraction of 1 XMR according to the mo
 * [get_account_tags](#get_account_tags)
 * [tag_accounts](#tag_accounts)
 * [untag_accounts](#untag_accounts)
+* [set_account_tag_description](#set_account_tag_description)
 
 ---
 
@@ -1463,6 +1464,30 @@ Example:
 
 ```
 $ curl -X POST http://localhost:18082/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"untag_accounts","params":{"accounts":[1]}}' -H 'Content-Type: application/json'
+
+{
+  "id": "0",
+  "jsonrpc": "2.0",
+  "result": {
+  }
+}
+```
+
+### **set_account_tag_description**
+
+Set description for an account tag.
+
+Inputs:
+
+* *tag* - string; Set a description for this tag.
+* *description* - string; Description for the tag.
+
+Outputs: *None*.
+
+Example:
+
+```
+$ curl -X POST http://localhost:18082/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"set_account_tag_description","params":{"tag":"test","description":"Test accounts"}}' -H 'Content-Type: application/json'
 
 {
   "id": "0",
