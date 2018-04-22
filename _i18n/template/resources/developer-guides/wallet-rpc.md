@@ -87,24 +87,43 @@ Note: "atomic units" refer to the smallest fraction of 1 XMR according to the mo
 
 Return the wallet's balance.
 
-Inputs: *None*.
+Inputs:
+
+* *account_index* - unsigned int; Return balance for this account.
 
 Outputs:
 
 * *balance* - unsigned int; The total balance of the current monero-wallet-rpc in session.
 * *unlocked_balance* - unsigned int; Unlocked funds are those funds that are sufficiently deep enough in the Monero blockchain to be considered safe to spend.
+* *multisig_import_needed* - boolean; True if importing multisig data is needed for returning a correct balance.
+* *per_subaddress* - array of subaddress information; Balance information for each subaddress in an account.
+  * *address_index* - unsigned int; Index of the subaddress in the account.
+  * *address* - string; Address at this index. Base58 representation of the public keys.
+  * *balance* - unsigned int; Balance for the subaddress (locked or unlocked).
+  * *unlocked_balance* - unsigned int; Unlocked balance for the subaddress.
+  * *label* - string; Label for the subaddress.
+  * *num_unspent_outputs* - unsigned int; Number of unspent outputs available for the subaddress.
 
 Example:
 
 ```
-$ curl -X POST http://127.0.0.1:18082/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"getbalance"}' -H 'Content-Type: application/json'
+$ curl -X POST http://127.0.0.1:18082/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"getbalance","params":{"account_index":0}}' -H 'Content-Type: application/json'
 
 {
   "id": "0",
   "jsonrpc": "2.0",
   "result": {
     "balance": 140000000000,
-    "unlocked_balance": 50000000000
+    "unlocked_balance": 50000000000,
+    "multisig_import_needed": false,
+    "per_subaddress": {
+      "address_index": 0,
+      "address": "427ZuEhNJQRXoyJAeEoBaNW56ScQaLXyyQWgxeRL9KgAUhVzkvfiELZV7fCPBuuB2CGuJiWFQjhnhhwiH1FsHYGQGaDsaBA",
+      "balance": 140000000000,
+      "unlocked_balance": 50000000000,
+      "label": "",
+      "num_unspent_outputs": 42
+    }
   }
 }
 ```
