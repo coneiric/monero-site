@@ -459,31 +459,79 @@ Returns a list of transfers.
 
 Inputs:
 
-* *in* - boolean;
-* *out* - boolean;
-* *pending* - boolean;
-* *failed* - boolean;
-* *pool* - boolean;
-* *filter_by_height* - boolean;
-* *min_height* - unsigned int;
-* *max_height* - unsigned int;
+* *in* - boolean; (Optional) Include incoming transfers.
+* *out* - boolean; (Optional) Include outgoing transfers.
+* *pending* - boolean; (Optional) Include pending transfers.
+* *failed* - boolean; (Optional) Include failed transfers.
+* *pool* - boolean; (Optional) Include transfers from the daemon's transaction pool.
+* *filter_by_height* - boolean; (Optional) Filter transfers by block height.
+* *min_height* - unsigned int; (Optional) Minimum block height to scan for transfers, if filtering by height is enabled.
+* *max_height* - unsigned int; (Opional) Maximum block height to scan for transfers, if filtering by height is enabled.
+* *account_index* - unsigned int; (Optional) Index of the account to query for transfers.
+* *subaddr_indices* - array of unsigned int; (Optional) List of subaddress indices to query for transfers.
 
 Outputs:
 
 * *in* array of transfers:
-  * *txid* - string;
-  * *payment_id* - string;
-  * *height* - unsigned int;
-  * *timestamp* - unsigned int;
-  * *amount* - unsigned int;
-  * *fee* - unsigned int;
-  * *note* - string;
-  * *destinations* - std::list<transfer_destination>;
-  * *type* - string;
-* *out* array of transfers
-* *pending* array of transfers
-* *failed* array of transfers
-* *pool* array of transfers
+  * *txid* - string; Transaction ID for this transfer.
+  * *payment_id* - string; Payment ID for this transfer.
+  * *height* - unsigned int; Height of the first block that confirmed this transfer.
+  * *timestamp* - unsigned int; POSIX timestamp for when this transfer was first confirmed in a block.
+  * *amount* - unsigned int; Amount transferred.
+  * *fee* - unsigned int; Transaction fee for this transfer.
+  * *note* - string; Note about this transfer.
+  * *destinations* - array of transfer destinations:
+    * *amount* - unsigned int; Amount for this destination.
+    * *address* - string; Address for this destination. Base58 representation of the public keys.
+  * *type* - string; Transfer type: "in"
+* *out* array of transfers:
+  * *txid* - string; Transaction ID for this transfer.
+  * *payment_id* - string; Payment ID for this transfer.
+  * *height* - unsigned int; Height of the first block that confirmed this transfer.
+  * *timestamp* - unsigned int; POSIX timestamp for when this transfer was first confirmed in a block.
+  * *amount* - unsigned int; Amount transferred.
+  * *fee* - unsigned int; Transaction fee for this transfer.
+  * *note* - string; Note about this transfer.
+  * *destinations* - array of transfer destinations:
+    * *amount* - unsigned int; Amount for this destination.
+    * *address* - string; Address for this destination. Base58 representation of the public keys.
+  * *type* - string; Transfer type: "out"
+* *pending* array of transfers:
+  * *txid* - string; Transaction ID for this transfer.
+  * *payment_id* - string; Payment ID for this transfer.
+  * *height* - unsigned int; 0, this transfer is not yet confirmed in a block.
+  * *timestamp* - unsigned int; POSIX timestamp for when this transfer was sent.
+  * *amount* - unsigned int; Amount transferred.
+  * *fee* - unsigned int; Transaction fee for this transfer.
+  * *note* - string; Note about this transfer.
+  * *destinations* - array of transfer destinations:
+    * *amount* - unsigned int; Amount for this destination.
+    * *address* - string; Address for this destination. Base58 representation of the public keys.
+  * *type* - string; Transfer type: "pending"
+* *failed* array of transfers:
+  * *txid* - string; Transaction ID for this transfer.
+  * *payment_id* - string; Payment ID for this transfer.
+  * *height* - unsigned int; 0, this transfer will not be confirmed in a block.
+  * *timestamp* - unsigned int; POSIX timestamp for when this transfer was sent.
+  * *amount* - unsigned int; Amount transferred.
+  * *fee* - unsigned int; Transaction fee for this transfer.
+  * *note* - string; Note about this transfer.
+  * *destinations* - array of transfer destinations:
+    * *amount* - unsigned int; Amount for this destination.
+    * *address* - string; Address for this destination. Base58 representation of the public keys.
+  * *type* - string; Transfer type: "failed"
+* *pool* array of transfers:
+  * *txid* - string; Transaction ID for this transfer.
+  * *payment_id* - string; Payment ID for this transfer.
+  * *height* - unsigned int; 0, this transfer is not yet confirmed in a block.
+  * *timestamp* - unsigned int; POSIX timestamp for when this transfer was last seen in the transaction pool.
+  * *amount* - unsigned int; Amount transferred.
+  * *fee* - unsigned int; Transaction fee for this transfer.
+  * *note* - string; Note about this transfer.
+  * *destinations* - array of transfer destinations:
+    * *amount* - unsigned int; Amount for this destination.
+    * *address* - string; Address for this destination. Base58 representation of the public keys.
+  * *type* - string; Transfer type: "pool"
 
 
 Example:
