@@ -76,6 +76,7 @@ Note: "atomic units" refer to the smallest fraction of 1 XMR according to the mo
 * [label_address](#label_address)
 * [get_account_tags](#get_account_tags)
 * [tag_accounts](#tag_accounts)
+* [untag_accounts](#untag_accounts)
 
 ---
 
@@ -1439,6 +1440,29 @@ Example:
 
 ```
 $ curl -X POST http://localhost:18082/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"tag_accounts","params":{"tag":"test","accounts":[0,1]}}' -H 'Content-Type: application/json'
+
+{
+  "id": "0",
+  "jsonrpc": "2.0",
+  "result": {
+  }
+}
+```
+
+### **untag_accounts**
+
+Remove filtering tag from a list of accounts.
+
+Inputs:
+
+* *accounts* - array of unsigned int; Remove tag from this list of accounts.
+
+Outputs: *None*.
+
+Example:
+
+```
+$ curl -X POST http://localhost:18082/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"untag_accounts","params":{"accounts":[1]}}' -H 'Content-Type: application/json'
 
 {
   "id": "0",
