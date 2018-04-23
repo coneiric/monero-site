@@ -257,8 +257,10 @@ Inputs:
 * *destinations* - array of destinations to receive XMR:
   * *amount* - unsigned int; Amount to send to each destination, in atomic units.
   * *address* - string; Destination public address.
-* *fee* - unsigned int; Ignored, will be automatically calculated.
-* *mixin* - unsigned int; Number of outpouts from the blockchain to mix with (0 means no mixing).
+* *account_index* - unsigned int; Transfer from this account.
+* *subaddr_indices* - array of unsigned int; Transfer from this set of subaddresses.
+* *mixin* - unsigned int; Number of outputs from the blockchain to mix with (0 means no mixing).
+* *ring_size* - unsigned int; Sets ringsize to n (mixin + 1).
 * *unlock_time* - unsigned int; Number of blocks before the monero can be spent (0 to not add a lock).
 * *payment_id* - string; (Optional) Random 32-byte/64-character hex string to identify a transaction.
 * *get_tx_keys* - boolean; (Optional) Return the transaction keys after sending. -- Ignored
@@ -266,6 +268,7 @@ Inputs:
 * *do_not_relay* - boolean; (Optional) If true, the newly created transaction will not be relayed to the monero network. (Defaults to false)
 * *get_tx_hex* - boolean; Return the transactions as hex string after sending
 * *new_algorithm* - boolean; True to use the new transaction construction algorithm, defaults to false.
+* *get_tx_metadata* - boolean; Return list of transaction metadata needed to relay the transfer later.
 
 Outputs:
 
@@ -274,6 +277,8 @@ Outputs:
 * *tx_blob_list* - array of: string. The tx as hex string for every transaction.
 * *amount_list* - array of: integer. The amount transferred for every transaction..
 * *tx_key_list* - array of: string. The transaction keys for every transaction.
+* *tx_metadata_list* - array of: string. List of transaction metadata needed to relay the transactions later.
+* *multisig_txset* - string. The set of signing keys used in a multisig transaction (empty for non-multisig).
 
 Example:
 
