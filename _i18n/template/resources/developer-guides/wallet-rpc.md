@@ -429,17 +429,21 @@ Get a list of incoming payments using a given payment id, or a list of payments 
 
 Inputs:
 
-* *payment_ids* - array of: string
- * *min_block_height* - unsigned int; The block height at which to start looking for payments.
+* *payment_ids* - array of: string; Payment IDs used to find the payments.
+* *min_block_height* - unsigned int; The block height at which to start looking for payments.
 
 Outputs:
 
 * *payments* - list of:
-  * *payment_id* - string
-  * *tx_hash* - string
-  * *amount* - unsigned int
-  * *block_height* - unsigned int
-  * *unlock_time* - unsigned int
+  * *payment_id* - string; Payment ID matching one of the input IDs.
+  * *tx_hash* - string; Transaction hash used as the transaction ID.
+  * *amount* - unsigned int; Amount for this payment.
+  * *block_height* - unsigned int; Height of the block that first confirmed this payment.
+  * *unlock_time* - unsigned int; Time (in block height) until this payment is safe to spend.
+  * *subaddr_index* - subaddress index:
+    * *major* - unsigned int; Account index for the subaddress.
+    * *minor* - unsigned int; Index of the subaddress in the account.
+  * *address* - string; Address receiving the payment; Base58 representation of the public keys.
 
 Example:
 
@@ -456,6 +460,11 @@ $ curl -X POST http://127.0.0.1:18082/json_rpc -d '{"jsonrpc":"2.0","id":"0","me
       "payment_id": "4279257e0a20608e25dba8744949c9e1caff4fcdafc7d5362ecf14225f3d9030",
       "tx_hash": "c391089f5b1b02067acc15294e3629a463412af1f1ed0f354113dd4467e4f6c1",
       "unlock_time": 0
+      "subaddr_index": {
+        "major": 0,
+        "minor": 1,
+      },
+      "address": "88bV1uo76AaKZaWD389kCf5EfPxKFYEKUQbs9ZRJm23E2X2oYgV9bQ54FiY6hAB83aDXMUSZF6KWyfeQqzLqaAeeFrk9iic"
     }]
   }
 }
