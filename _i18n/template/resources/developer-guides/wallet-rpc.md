@@ -329,20 +329,25 @@ Send all unlocked balance to an address.
 Inputs:
 
 * *address* - string; Destination public address.
-* *priority* - unsigned int; (Optional)
-* *mixin* - unsigned int; Number of outpouts from the blockchain to mix with (0 means no mixing).
+* *account_index* - unsigned int; Sweep transactions from this account.
+* *subaddr_indices* - array of unsigned int; (Optional) Sweep from this set of subaddresses in the account.
+* *priority* - unsigned int; (Optional) Priority for sending the sweep transfer, partially determines fee.
+* *mixin* - unsigned int; Number of outputs from the blockchain to mix with (0 means no mixing).
 * *unlock_time* - unsigned int; Number of blocks before the monero can be spent (0 to not add a lock).
 * *payment_id* - string; (Optional) Random 32-byte/64-character hex string to identify a transaction.
 * *get_tx_keys* - boolean; (Optional) Return the transaction keys after sending.
-* *below_amount* - unsigned int; (Optional)
-* *do_not_relay* - boolean; (Optional)
+* *below_amount* - unsigned int; (Optional) Include outputs below this amount.
+* *do_not_relay* - boolean; (Optional) If true, do not relay this sweep transfer.
 * *get_tx_hex* - boolean; (Optional) return the transactions as hex encoded string.
+* *get_tx_metadata* - boolean; (Optional) return the transaction metadata as a string.
 
 Outputs:
 
-* *tx_hash_list* - array of string;
-* *tx_key_list* - array of string;
-* *tx_blob_list* - array of string; 
+* *tx_hash_list* - array of string; List of transaction hashes used as transaction IDs.
+* *tx_key_list* - array of string; List of public and private transaction keys.
+* *tx_blob_list* - array of string; List of transactions represented as a hex blob.
+* *tx_metadata_list* - array of string; Transaction metadata needed for relaying.
+* *multisig_txset* - string; Set of multisig transactions in the process of being signed.
 
 Example:
 
