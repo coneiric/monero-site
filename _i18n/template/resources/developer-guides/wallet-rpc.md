@@ -652,15 +652,20 @@ Return a list of incoming transfers to the wallet.
 Inputs:
 
 * *transfer_type* - string; "all": all the transfers, "available": only transfers which are not yet spent, OR "unavailable": only transfers which are already spent.
+* *account_index* - unsigned int; (Optional) Return transfers for this account.
+* *subaddr_indices* - array of unsigned int; (Optional) Return transfers sent to these subaddresses.
+* *verbose* - boolean; (Optional) Enable verbose output, return key image if true.
 
 Outputs:
 
 * *transfers* - list of:
-  * *amount* - unsigned int
-  * *spent* - boolean
+  * *amount* - unsigned int; Amount of this transfer.
+  * *spent* - boolean; Indicates if this transfer has been spent.
   * *global_index* - unsigned int; Mostly internal use, can be ignored by most users.
   * *tx_hash* - string; Several incoming transfers may share the same hash if they were in the same transaction.
-  * *tx_size* - unsigned int
+  * *tx_size* - unsigned int; Size of transaction in bytes.
+  * *subaddr_index* - unsigned int; Subaddress index for incoming transfer.
+  * *key_image* - string; Key image for the incoming transfer's unspent output (empty unless verbose is true).
 
 Example (Return "all" transaction types):
 
@@ -676,19 +681,25 @@ $ curl -X POST http://127.0.0.1:18082/json_rpc -d '{"jsonrpc":"2.0","id":"0","me
       "global_index": 711506,
       "spent": false,
       "tx_hash": "&lt;c391089f5b1b02067acc15294e3629a463412af1f1ed0f354113dd4467e4f6c1&gt;",
-      "tx_size": 5870
+      "tx_size": 5870,
+      "subaddr_index": 0,
+      "key_image": ""
     },{
       "amount": 300000000000,
       "global_index": 794232,
       "spent": false,
       "tx_hash": "&lt;c391089f5b1b02067acc15294e3629a463412af1f1ed0f354113dd4467e4f6c1&gt;",
-      "tx_size": 5870
+      "tx_size": 5870,
+      "subaddr_index": 0,
+      "key_image": ""
     },{
       "amount": 50000000000,
       "global_index": 213659,
       "spent": false,
       "tx_hash": "&lt;c391089f5b1b02067acc15294e3629a463412af1f1ed0f354113dd4467e4f6c1&gt;",
-      "tx_size": 5870
+      "tx_size": 5870,
+      "subaddr_index": 0,
+      "key_image": ""
     }]
   }
 }
@@ -708,19 +719,25 @@ $ curl -X POST http://127.0.0.1:18082/json_rpc -d '{"jsonrpc":"2.0","id":"0","me
       "global_index": 711506,
       "spent": false,
       "tx_hash": "&lt;c391089f5b1b02067acc15294e3629a463412af1f1ed0f354113dd4467e4f6c1&gt;",
-      "tx_size": 5870
+      "tx_size": 5870,
+      "subaddr_index": 0,
+      "key_image": ""
     },{
       "amount": 300000000000,
       "global_index": 794232,
       "spent": false,
       "tx_hash": "&lt;c391089f5b1b02067acc15294e3629a463412af1f1ed0f354113dd4467e4f6c1&gt;",
-      "tx_size": 5870
+      "tx_size": 5870,
+      "subaddr_index": 0,
+      "key_image": ""
     },{
       "amount": 50000000000,
       "global_index": 213659,
       "spent": false,
       "tx_hash": "&lt;c391089f5b1b02067acc15294e3629a463412af1f1ed0f354113dd4467e4f6c1&gt;",
-      "tx_size": 5870
+      "tx_size": 5870,
+      "subaddr_index": 0,
+      "key_image": ""
     }]
   }
 }
