@@ -563,19 +563,29 @@ Show information about a transfer to/from this address.
 
 Inputs:
 
-* *txid* - string
+* *txid* - string; Transaction ID used to find the transfer.
+* *account_index* - unsigned int; (Optional) Index of the account to query for the transfer.
 
 Outputs:
 
-* *transfer* - JSON object containing parment information:
-  * *amount* - unsigned int
-  * *fee* - unsigned int
-  * *height* - unsigned int
-  * *note* - string
-  * *payment_id* - string
-  * *timestamp* - unsigned int
-  * *txid* - string
-  * *type* - string
+* *transfer* - JSON object containing payment information:
+  * *amount* - unsigned int; Amount of this transfer.
+  * *fee* - unsigned int; Transaction fee for this transfer.
+  * *height* - unsigned int; Height of the first block that confirmed this transfer.
+  * *note* - string; Note about this transfer.
+  * *payment_id* - string; Payment ID for this transfer.
+  * *timestamp* - unsigned int; POSIX timestamp for the block that confirmed this transfer.
+  * *txid* - string; Transaction ID of this transfer (same as input TXID).
+  * *type* - string; Type of transfer, one of the following: "in", "out", "pending", "failed", "pool"
+  * *destinations* - array of JSON objects containing transfer destinations:
+    * *amount* - unsigned int; Amount transferred to this destination.
+    * *address* - string; Address for this destination. Base58 representation of the public keys.
+  * *unlock_time* - unsigned int; Number of blocks until transfer is safely spendable.
+  * *subaddr_index* - JSON object containing the major & minor subaddress index:
+    * *major* - unsigned int; Account index for the subaddress.
+    * *minor* - unsigned int; Index of the subaddress under the account.
+  * *address* - string; Address that transferred the funds. Base58 representation of the public keys.
+  * *double_spend_seen* - boolean; True if the key image(s) for the transfer have been seen before.
 
 Example:
 
@@ -595,6 +605,17 @@ $ curl -X POST http://localhost:18082/json_rpc -d '{"jsonrpc":"2.0","id":"0","me
       "timestamp": 1495539310,
       "txid": "f2d33ba969a09941c6671e6dfe7e9456e5f686eca72c1a94a3e63ac6d7f27baf",
       "type": "in"
+      "destinations": [
+        "amount": 10000000000000,
+        "address": "88bV1uo76AaKZaWD389kCf5EfPxKFYEKUQbs9ZRJm23E2X2oYgV9bQ54FiY6hAB83aDXMUSZF6KWyfeQqzLqaAeeFrk9iic"
+      ],
+      "unlock_time": 0,
+      "subaddr_index": {
+        "major": 0,
+        "minor": 0
+      },
+      "address": "427ZuEhNJQRXoyJAeEoBaNW56ScQaLXyyQWgxeRL9KgAUhVzkvfiELZV7fCPBuuB2CGuJiWFQjhnhhwiH1FsHYGQGaDsaBA",
+      "double_spend_seen": false
     }
   }
 }
